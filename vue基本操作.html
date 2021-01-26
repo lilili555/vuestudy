@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue</title>
+</head>
+
+<body>
+    <!-- 引包 -->
+    <script src="./vue.js"></script>
+    <!-- 
+        浏览器输入控制台Vue
+        ƒ Vue (options) {
+    if (!(this instanceof Vue)
+    ) {
+      warn('Vue is a constructor and should be called with the `new` keyword');
+    }
+    this._init(options);
+    } -->
+    <div id="app">
+        <!-- vue模板语法{{}}双大括号插值 -->
+        <!--  
+
+
+
+
+        -->
+        <div>{{msg}}</div>
+        <div>{{1+1}}</div>
+        <div>{{istrue}}</div>
+        <div>{{str.split('').reverse().join('')}}</div>
+        <div>{{1>2? "z":'j'}}</div>
+        <div>{{'msg'}}</div>
+        <h3>{{ {name:'zhangsann'} }}</h3>
+    </div>
+    <script>
+        // 创建实例化对象 
+        // 如果template中定义了内容，优先加载
+        var vm = new Vue({
+            el: '#app',
+            // data可以是对象，也可以是函数，推荐用函数
+            data() {
+                return {
+                    msg: "打算",
+                    istrue: 1 == 1,
+                    str: 'hellovue'
+                }
+                // 数据发生改变，视图也会发生改变，也就是数据驱动视图
+            },
+            // template: `<h3>{{msg}}</h3>`
+        })
+        console.log(vm)
+        console.log(vm.$el == document.getElementById('app'))
+        console.log(vm.$data)
+    </script>
+
+</body>
+
+</html>
