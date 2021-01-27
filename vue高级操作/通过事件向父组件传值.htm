@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props传值</title>
+    <style>
+        .fu {
+            background: red;
+            width: 500px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .zi {
+            background: green;
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        /*通过props父向子传值
+                                                                1、在调用子组件标签的时候 ，用v-bind：绑定自定义属性，值为要传递的数据
+                                                                2、在子组件中定义props数组， props:[''] 接收属性名
+                                                                 3、属性名就可以代表值，在子组件中进行调用
+                                                                */
+
+        /*
+        子====>父传
+        1、在父组件中，   调用子组件时，  绑定自定义事件
+        2、父组件中，    声明自定义事件的函数，接收子组件传来的值
+        3、子组件中     通过触发原生事件调用函数，函数中用$emit(),来出发负组件中的事件，参数为，父组件中的自定义事件名，加上要传递的参数
+        
+        */
+
+        Vue.component('Parent', {
+            data() {
+                return {
+                    msg: '我是你爸爸',
+                    val: '儿子的信息'
+                }
+            },
+            template: `
+            <div class='fu'>
+            <input type='text' v-model='msg'></input>
+            <p>{{val}}</p>  
+                <Child :shuju='msg' @zifuchuan='zifuchuan'/>
+                
+            </div>
+            
+            `,
+            methods: {
+                zifuchuan(val) {
+                    console.log(val)
+                    this.val = val
+                }
+            },
+        })
+        Vue.component('Child', {
+                data() {
+                    return {
+                        mag: '这是儿子传来的消息'
+                    }
+                },
+                props: ['shuju'],
+
+                template: `
+            <div class='zi'>
+            <p>父亲传来的 ==={{shuju}}</p>
+            <input type='text' v-model='mag'></input>
+            <button @click='changeV(mag)'>子传父</button>
+            </div>
+            `,
+                methods: {
+                    changeV(val) {
+                        this.$emit('zifuchuan', val)
+                    }
+                },
+            })
+            //局部入口组件声明
+        var App = {
+            template: `
+            <div>
+                <Parent/>               
+            </div>
+            `
+        }
+        let vm = new Vue({
+            el: '#app',
+            //挂载子组件
+            components: {
+                App
+            },
+            template: `
+            <App/>
+            
+            `,
+
+        })
+    </script>
+</body>
+
+</html>
