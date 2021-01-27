@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局组件</title>
+</head>
+
+<body>
+    <script src="../vue.js"></script>
+
+    <div id="app">
+        <h3> {{msg}} </h3>
+        <aaaa/>
+    </div>
+    <script>
+        Vue.component('aaaa', {
+            data() {
+                return {
+                    msg: '我是你爸爸'
+                }
+            },
+            template: `<div> {{msg}} </div>`
+        })
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    msg: 46
+                }
+            },
+
+        })
+    </script>
+
+
+
+</body>
+
+</html>
