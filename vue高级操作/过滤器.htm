@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src='../vue.js'></script>
+    <script>
+        //全局过滤器
+        //与局部过滤器调用相同，声明方式类似与全局组件
+        Vue.filter('format2', function(val) {
+            return val.split('').reverse().join('')
+        })
+
+        //局部过滤器与函数一样声明，只不过函数实在,methods:{}中声明， 过滤器在filters:{}中声明
+        //声明过滤器filters:{}
+        //{{变量名|过滤器名 }}
+        var app = {
+            data() {
+                return {
+                    price: 60,
+                    mag: 'hello filter'
+                }
+            },
+            template: `
+            <div>
+            <input type='number' v-model='price'>
+            </input>
+            <h2>
+                {{price|format}}
+            </h2>
+            <input type='text' v-model='mag'>
+
+            </input><h5 v-text='mag'></h5>
+            <h1>
+                {{mag|format2}}
+            </h1>
+            
+            </div>
+            `,
+            filters: {
+                format(val) {
+                    return `dasd${val}qeqw`
+                }
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                app
+            },
+            template: `
+            <app/>
+            `
+        })
+    </script>
+</body>
+
+</html>
