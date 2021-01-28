@@ -15,8 +15,7 @@
             template: `
             <div>
             第一个坑 <slot name='one'> </slot>  
-            第二个坑 <slot name='two'> </slot>   
-                
+            第二个坑 <slot name='two'> </slot>                   
             </div>
             
             `
@@ -24,12 +23,14 @@
 
         var app = {
             template: `
-            <div>
-            入口组件
-      
+            <div>  
             <ul>
                 <myslot>
-                    <h2 slot='one'>这是第一个空</h2>
+                    <!--template标签加上  v-slot:指令指定对应slot名-->
+                    <template v-slot:one>
+                        <h2>这是第一个空</h2>
+                    </template>
+                    <!--任意标签加上  slot属性指定对应的slot名-->
                     <h1 slot='two'>这是第er个空</h1>
 
                 </myslot>
