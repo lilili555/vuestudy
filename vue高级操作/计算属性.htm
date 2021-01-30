@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        audio {
+            background: #153e5d;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        li {
+            margin: 20px;
+            padding: 20px;
+            background: #a189a1;
+            border-radius: 5px;
+        }
+        
+        .active {
+            background: #2e32f5;
+        }
+    </style>
+</head>
+
+<body>
+    //计算属性和方法达到的效果是一样的， 但是计算属性有缓存机制，只要侦听的属性不发生变化 //据不会像方法一样每次都会更新。 //侦听器做异步请求时作用更好，复杂一点的逻辑还是用计算属性更好
+    <div id="app">
+        <audio :src='computeindex' autoplay controls></audio>
+        <ul>
+            <li v-for='(item,index) in musicData' @click=handller(index) :class='{active: curindex==index}'>
+                <h1> {{item.id}} </h1>
+                <h2>{{item.name}}</h2>
+            </li>
+
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var musicData = [
+
+            {
+                id: 1,
+                name: '布拉格广场_蔡依林&周杰伦',
+                ssrc: '../static/布拉格广场_蔡依林&周杰伦.mp3'
+            }, {
+                id: 2,
+                name: '酷我音乐',
+                ssrc: '../static/酷我音乐.mp3'
+            }, {
+                id: 3,
+                name: '周杰伦★无与伦比的',
+                ssrc: '../static/周杰伦★无与伦比的.mp3'
+            },
+        ];
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    musicData: musicData,
+                    curindex: 0
+                }
+            },
+            methods: {
+                handller(index) {
+                    this.curindex = index
+                }
+            },
+            computed: {
+                computeindex: function() {
+                    return this.musicData[this.curindex].ssrc
+                }
+            }
+        })
+        console.log(vm.computeindex)
+    </script>
+</body>
+
+</html>

@@ -10,6 +10,12 @@
     <div id="app"></div>
     <script src="../vue.js"></script>
     <script>
+        /*
+                watch监听器：
+                一次只监听一个属性
+                简单数据类型简单监听
+                复杂数据类型深度监听
+                */
         var app = {
             data() {
                 return {
@@ -42,7 +48,6 @@
                     }
                 }
             }
-
         }
         new Vue({
             el: '#app',
