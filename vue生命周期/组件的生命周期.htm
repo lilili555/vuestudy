@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <app/>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('testcom', {
+            data() {
+                return {
+                    msg: 'hello 生命周期'
+                }
+            },
+            template: `
+            <div>
+                <input type='text' v-model='msg'>
+                </input>
+                <h2>{{msg}}
+                </h2>
+            </div>
+            `,
+
+            beforeCreate() {
+                console.log(this.msg)
+            },
+            created() {
+                //组件创造之后
+                //使用该组件就会调用
+                //操作后端的数据，数据驱动试图
+                //发起ajax请求
+                console.log(this.msg)
+            },
+            beforeMount() {
+                //挂在数据到dom之前
+                console.log(document.getElementById('app'))
+            },
+            mounted() {
+                //挂载数据到dom之后
+                console.log(document.getElementById('app'))
+            },
+            beforeUpdate() {
+                //dom更新前
+                console.log(document.getElementById('app').innerHTML)
+            },
+            updated() {
+                //dom更新之后
+                console.log(document.getElementById('app').innerHTML)
+            },
+            beforeDestroy() {
+                console.log(1)
+            },
+            destroyed() {
+                console.log(2)
+            },
+            activated() {
+                console.log('组件激活了')
+            },
+            deactivated() {
+                console.log('组件停用')
+            },
+        })
+
+        var app = {
+            data() {
+                return {
+                    isshow: true
+                }
+            },
+            //keep-alive内置组件，可以在组件的切换过程中将状态保留在内存中，防止重复渲染dom
+            template: `
+            <div > 
+                <keep-alive><testcom v-if='isshow'/>
+                </keep-alive>
+                
+                <button @click='isshow=!isshow'>
+                </button>
+                </div>
+            `
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                app
+            },
+        })
+    </script>
+</body>
+
+</html>
