@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>watch监听器</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="../vue.js"></script>
+    <script>
+        var app = {
+            data() {
+                return {
+                    msg: '我是你爸爸',
+                    mssg: {
+                        name: 'lizibin'
+                    }
+                }
+            },
+            template: `
+            <div>
+            <input type="text" v-model='msg'></input>
+            <input type="text" v-model='mssg.name'></input>
+            <h2> {{msg}}</h2>  
+            <h2> {{mssg.name}}</h2>  
+            </div>
+            `,
+            watch: {
+                msg: (new1, old) => {
+                    console.log(new1);
+                    console.log(old);
+                    if (new1 === '我是你爸爸刘子斌') {
+                        console.log(`you are right`)
+                    }
+                },
+                mssg: {
+                    deep: true,
+                    handler: function(new1, old) {
+                        console.log(new1.name)
+                    }
+                }
+            }
+
+        }
+        new Vue({
+            el: '#app',
+            template: `<app/>`,
+            components: {
+                app
+            }
+        })
+    </script>
+</body>
+
+</html>
