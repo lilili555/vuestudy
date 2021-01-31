@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 引入vue -->
+    <script src="../vue.js"></script>
+    <!-- 引入vue-router -->
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        var login = {
+            template: `
+            <div>
+                <h2>登录界面</h2>
+            </div>
+            `
+        }
+        var regsiter = {
+            template: `
+            <div>
+                <h2>注册界面</h2>
+            </div>
+            `
+        }
+
+        // 让vue使用vuerouter
+        Vue.use(VueRouter);
+
+        var router = new VueRouter({
+            routes: [{
+                path: '/login',
+                name: 'login',
+                component: login
+            }, {
+                path: '/regsiter',
+                name: 'regsiter',
+                component: regsiter
+            }]
+
+
+        })
+        var app = {
+            template: `
+            <div>
+                <router-link :to='{name:"login"}'>登录
+                </router-link>
+                <router-link :to='{name:"regsiter"}'>注册
+                </router-link>
+                <router-view/>
+            </div>
+                
+            `,
+
+            compnents: {
+                login,
+                regsiter
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                app
+            },
+            router,
+            template: `
+            <app/>
+            
+            `
+
+        })
+    </script>
+</body>
+
+</html>

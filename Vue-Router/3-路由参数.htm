@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 引入vue -->
+    <script src="../vue.js"></script>
+    <!-- 引入vue-router -->
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        var userP = {
+            template: `
+            <div>
+                <h2>我是用户1</h2>
+            </div>
+
+            `,
+            created() {
+                console.log(this.$router);
+                console.log(this.$route);
+                console.log(router);
+            },
+        }
+        var userQ = {
+            template: `
+            <div>
+                <h2>我是用户2</h2>
+            </div>
+            `
+        }
+
+        // 让vue使用vuerouter
+        // Vue.use(VueRouter);
+
+        //1、 xxx.html#/user/1  params  动态路由参数
+        //2、 ooo.html#/user?userId=1   query 查询
+        var router = new VueRouter({
+            routes: [{
+                //动态路由参数
+                path: '/user/:id',
+                name: 'userP',
+                component: userP
+            }, {
+                path: '/user',
+                name: 'userQ',
+                component: userQ
+            }]
+
+
+        })
+        var app = {
+            template: `
+            <div>
+                <router-link :to="{name:'userP',params:{id:1}}">用户1
+                </router-link>
+                <router-link :to="{name:'userQ',query:{userId:2}}">用户2
+                </router-link>
+                <router-view/>
+            </div>
+                
+            `,
+
+            compnents: {
+                userP,
+                userQ
+            }
+        }
+        new Vue({
+            el: '#app',
+            components: {
+                app
+            },
+            router,
+            template: `
+            <app/>
+            
+            `
+
+        })
+    </script>
+</body>
+
+</html>
