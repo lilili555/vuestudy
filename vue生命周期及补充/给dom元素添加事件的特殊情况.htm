@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.component('app', {
+            data() {
+                return {
+                    isshow: false
+                }
+            },
+            template: `
+            <div>
+                <input type='text' v-show='isshow' ref='input'>
+                </input>
+                <button ref='btn'>按钮</button>   
+
+            </div>
+            
+            `,
+
+            mounted() {
+                //挂在后数据才发生变化，这时数据改动后发生dom的改变，是看不到的
+                //需要用this.$nextTick(()=>{})进行相应操作
+                this.isshow = true,
+                    console.log(this.$refs.input)
+                this.$nextTick(function() {
+                    console.log(this.$refs.input)
+                    this.$refs.input.focus()
+                })
+            },
+        })
+        new Vue({
+            el: '#app',
+            template: `
+                <app/>
+            `
+        })
+    </script>
+
+</body>
+
+</html>
