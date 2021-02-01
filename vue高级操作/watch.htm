@@ -11,11 +11,11 @@
     <script src="../vue.js"></script>
     <script>
         /*
-                watch监听器：
-                一次只监听一个属性
-                简单数据类型简单监听
-                复杂数据类型深度监听
-                */
+                                watch监听器：
+                                一次只监听一个属性
+                                简单数据类型简单监听
+                                复杂数据类型深度监听
+                                */
         var app = {
             data() {
                 return {
@@ -34,7 +34,15 @@
             </div>
             `,
             watch: {
-                msg: (new1, old) => {
+                //两种写法都好使，值得研究
+                // msg: (new1, old) => {
+                //     console.log(new1);
+                //     console.log(old);
+                //     if (new1 === '我是你爸爸刘子斌') {
+                //         console.log(`you are right`)
+                //     }
+                // },
+                'msg' (new1, old) {
                     console.log(new1);
                     console.log(old);
                     if (new1 === '我是你爸爸刘子斌') {
